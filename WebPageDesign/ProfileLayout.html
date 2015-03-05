@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+
+<!-- 	Job Recommender 
+		Document Purpose:		Design and layout of the Profile Page
+		Document Author:		RaSh
+		Document Update date:	03/04/2015 -->
+		
+<html>
+<head>
+	<Title>RaSh Job Recommender</Title>
+	<meta name="keywords" content="Jobs, Recommendation, Linkedin, Content-based Recommendation">
+	<meta name="description" content="Job Recommendations based on your Linkedin Profile">
+	<meta charset = "UTF-8">
+	<meta name="author" content="RaSh">
+	
+	<link rel="stylesheet" type="text/css" href="HomeStyle.css"> 
+</head>
+
+<body>
+	<div id="header">
+		<h1 id="page-header">What is the Best job for You?</h1>
+	</div>
+	<div id="nav">
+		<ul>
+			<li id="nav-menu"><a href="http://www.bing.com">Home</a></li>
+			<li id="nav-menu"><a href="http://www.bing.com">About</a></li>
+			<li id="nav-menu"><a href="http://www.bing.com">Git-repo</a></li>
+		</ul>
+	</div>
+	<!--<br/><br/>-->
+	<div id="container">
+
+	<div id="login">
+		<p style="border-radius:20px;background-color:#938989;text-align:center;color:white;padding:4px">Returning User? Sign in</p>
+		<form action="login.php" method="POST">
+			<input type="text" autocomplete="on" name="username" placeholder="Your E-mail"><br/>
+			<input type="password" name="pwd" name="pass" placeholder="Password"><br/>
+			<button type="submit">Log in</button>
+		</form>
+	</div>
+	
+	<div id="profile-desc">
+		<img style="float:left" src="/ProfilePic.jpg">
+		<p>Name: Ravishankar</p>
+		<p>Position: Student at University of Cincinnati</p>
+	</div>
+	<div id="jobdetail">
+		<p>No detail found</p>
+	</div>
+</body>
+</html>

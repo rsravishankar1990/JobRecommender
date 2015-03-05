@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+
+<!-- 	Job Recommender 
+		Document Purpose:		Design and layout of the home page
+		Document Author:		RaSh
+		Document Update date:	03/04/2015 -->
+		
+<html>
+<head>
+	<Title>RaSh Job Recommender</Title>
+	<meta name="keywords" content="Jobs, Recommendation, Linkedin, Content-based Recommendation">
+	<meta name="description" content="Job Recommendations based on your Linkedin Profile">
+	<meta charset = "UTF-8">
+	<meta name="author" content="RaSh">
+	
+	<link rel="stylesheet" type="text/css" href="HomeStyle.css"> 
+</head>
+
+<body>
+	<div id="header">
+		<h1 id="page-header">What is the Best job for You?</h1>
+	</div>
+	<div id="nav">
+		<ul>
+			<li id="nav-menu"><a href="http://www.bing.com">Home</a></li>
+			<li id="nav-menu"><a href="http://www.bing.com">About</a></li>
+			<li id="nav-menu"><a href="http://www.github.com/rsravishankar1990">Git-repo</a></li>
+		</ul>
+	</div>
+	<!--<br/><br/>-->
+	<div id="container">
+
+	<div id="login">
+		<p style="border-radius:20px;background-color:#938989;text-align:center;color:white;padding:4px">Returning User? Sign in</p>
+		<form action="login.php" method="POST">
+			<input type="text" autocomplete="on" name="username" placeholder="Your E-mail"><br/>
+			<input type="password" name="pwd" name="pass" placeholder="Password"><br/>
+			<button type="submit">Log in</button>
+		</form>
+	</div>
+	
+		<div id="welcome">
+		<h3 style="font-family:Arial;">Welcome to the Job Recommender</h3>
+		<p id="wel-mess" style="font-size:0.9em">
+			A naive Recommendation engine which uses your linkedin profile
+			information to find best matching newly posted jobs on linkedin. The approach and the technologies used to implement 
+			this are provided in the git hub repo.
+		</p>
+	</div>
+	</div>
+	
+	<div id="signup">
+		<p style="border-radius:20px;background-color:#938989;text-align:center;color:white;padding:4px">New to Job Recommender? Sign up</p>
+		<div id = "signup-form">
+			<form action="signup.php" method="POST">
+				<input type="text" name="newuser" placeholder="Enter your e-mail"><br/>
+				<input type="password" name="newpass" placeholder="Enter your password"><br/>
+				<button type="submit">Sign up</button>
+			</form>
+		</div>
+	</div>
+	<div id="footer" style="text-align:center;font-size:0.6em;border-style:solid;width:700px;border-color:white;position:fixed;left:600px;bottom:10px">
+		Last updated on March 4th 2015
+	</div>
+</body>
+</html>
