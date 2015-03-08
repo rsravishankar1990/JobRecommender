@@ -1,0 +1,58 @@
+/*Style sheet for the Registration page*/
+/*Document Purpose	:		Style sheet for register.php
+ * Author			:		RaSh
+ * Last update		:		March 8, 2015
+ */
+
+div#register-container {
+
+margin-top:100px;
+}
+
+div#register-form {
+/*border-style:solid;*/
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:550px;
+	width:820px;
+	background-color:#938989;
+	color:white;
+}
+
+p.sub-header {
+	background-color:black;
+	margin-top:0px;
+	padding:25px;
+	text-align:center;
+}
+
+.form-data {
+padding:4px;
+width:450px;
+font-family:Arial;
+padding-left:100px;
+/*border-style:solid;*/
+}
+
+.form-data-title {
+/*border-style:solid;*/
+padding-left:100px;
+font-family:Arial;
+}
+
+table#register-table {
+	margin-left:0px;
+	margin-top:50px;
+	margin-bottom:50px;
+	/*border-style:solid;*/
+}
+
+.important {
+	color:red;
+	font-size:0.8em;
+}
+
+span.regerror {
+	color:red;
+	font-size:0.8em;
+}

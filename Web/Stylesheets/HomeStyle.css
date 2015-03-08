@@ -139,3 +139,14 @@ div#rem-me	{
 				color:white;
 				border-radius:20px;
 			}
+.error		{
+				background-color:#EB2929;
+				font-size:0.8em;
+				font-family:Arial;
+				border-radius:20px;
+				color:white;
+				
+				padding-top:4px;
+				padding-bottom:4px;
+			
+			}
