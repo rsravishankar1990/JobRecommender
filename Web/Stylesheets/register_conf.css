@@ -1,0 +1,43 @@
+
+
+div#conf-message {
+
+		
+		margin-top:150px;
+		text-align:center;
+		background-color:#D6C6C6;
+		border-radius:20px;
+		padding-top :15px;
+		padding-bottom: 15px;
+		width: 600px;
+		margin-left:630px;
+		
+}
+
+p#login-butt {
+	margin-left:200px;
+	width:175px;
+	padding:3px;
+	border-radius:5px;
+	background-color:#938989;
+	color:white;
+}
+
+a#login-butt:link {
+	text-decoration:none;
+}
+
+
+a#login-butt:visited {
+	text-decoration:none;
+}
+
+
+a#login-butt:hover {
+	text-decoration:none;
+}
+
+
+a#login-butt:active {
+	text-decoration:none;
+}

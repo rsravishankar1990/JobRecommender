@@ -1,13 +1,7 @@
-<!DOCTYPE HTML>
 
-<!-- 	Job Recommender 
-		Document Purpose:		Registration Page
-		Document Author:		RaSh
-		Document Update date:	03/08/2015 -->
-		
 <html>
 <head >
-	<Title>RaSh Job Recommender</Title>
+	<Title>Job Recommender - Registration</Title>
 	<meta name="keywords" content="Jobs, Recommendation, Linkedin, Content-based Recommendation">
 	<meta name="description" content="Job Recommendations based on your Linkedin Profile">
 	<meta charset = "UTF-8">
@@ -43,6 +37,13 @@
 		
 		<form name="register-form" action="regconfirm.cgi" onsubmit="return registerValidate()" method="POST">
 			<table id="register-table">
+				<tr>
+					<td class="form-data-title"></td>
+					<td class="form-data">
+						<p style="color:red;font-size:0.85em">User already present. Provide another e-mail</p>
+					</td>
+					
+				</tr>
 				<tr>
 					<td class="form-data-title"></td>
 					<td class="form-data">

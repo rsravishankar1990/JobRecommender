@@ -7,11 +7,65 @@
  */
 
 
+//Handling Linkedin API
+function printEnter() {
+	console.log("Entered the linkedin load");
+	IN.Event.on(IN, "auth", printAuth);
+}
+
+function printAuth() {
+	console.log("My name is Ravishankar");
+	IN.API.Raw("/people/~:(id,first-name,location,last-name,interests,honors-awards,headline,publications,patents,skills,certifications,educations,courses,job-bookmarks,public-profile-url,specialties,industry,email-address,summary,picture-url,positions)").result(onSuccess).error(onError);
+}
+function onSuccess(data) {
+	
+	//Build Resume from Linkedin Profile
+	var resume_text = "";
+	resume_text = resume_text+ "Summary:\n"+data.summary+"\nEducation:\n";
+	var edu = data.educations.values;
+	for (var i = 0;i<data.educations.values.length;i++) {
+		var edobj = edu[i];
+		resume_text = resume_text + edobj.degree + "\t" +edobj.fieldOfStudy+"\n"+edobj.schoolName+"\n" +edobj.notes+"\n" ;
+	}
+	resume_text = resume_text + "\n\nPositions:\n";
+	var pos = data.positions.values;
+	for (i=0;i<data.positions.values.length;i++) {
+		var posobj = pos[i];
+		resume_text = resume_text + posobj.title + "\n" + posobj.company.name + "\n" + posobj.summary + "\nExperience: \t" + posobj.startDate.month+"-"+posobj.startDate.year+" to "+posobj.endDate.month+"-"+posobj.endDate.year+"\n"; 
+	}
+	
+	resume_text = resume_text + "\n\nSkills:\n";
+	var ski = data.skills.values;
+	for(i=0;i<data.skills.values.length;i++) {
+		var skiobj = ski[i];
+		resume_text = resume_text + skiobj.skill.name + "\n";
+	}
+	
+	resume_text = resume_text + "\n\nCertifications:\n";
+	var cert = data.certifications.values;
+	for(i=0;i<data.certifications.values.length;i++) {
+		var certobj = cert[i];
+		resume_text = resume_text + certobj.name + "\n";
+	}
+	
+	console.log(data.positions.values[0]);
+	
+	//Fill the registration field values
+	document.forms["register-form"]["user"].value = data.emailAddress;
+	document.forms["register-form"]["fname"].value = data.firstName;
+	document.forms["register-form"]["lname"].value = data.lastName;
+	document.forms["register-form"]["resume-paste"].value = resume_text;
+
+}
+function onError(error) {
+	console.log(error);
+}
+
+
+
 //Get the credentials and check if they are proper
 //Passwords should match in both rows
 //username should be a valid e-mail
-
-
 function registerValidate() {
 			var user = document.forms["register-form"]["user"].value;
 			var pwd = document.forms["register-form"]["pwd-enter"].value;
@@ -30,6 +84,8 @@ function registerValidate() {
 				console.log("Passwords match");
 			}else {
 				console.log("Passwords dont match at all");
+				document.forms["register-form"]["pwd-confirm"].value="";
+				document.forms["register-form"]["pwd-enter"].value="";
 				document.getElementById("pwd-error").innerHTML="&nbsp&nbsp&nbsp*Passwords dont match&nbsp&nbsp&nbsp";
 				return false;
 			}	
@@ -43,6 +99,11 @@ function registerValidate() {
 //
 function addPosition() {
 	console.log("Entered the add position function");
+	var posnum = document.getElementById("numPosition").value;
+	posnum = parseInt(posnum);
+	posnum = posnum + 1;
+	console.log(posnum);
+	document.getElementById("numPosition").value = posnum ;
 	var position = document.getElementsByClassName("job-position");
 	for(var i= 0;i<position.length;i++) {
 		console.log(position[i].value);
@@ -58,8 +119,99 @@ function addPosition() {
 	input.setAttribute("type","text");
 	input.setAttribute("placeholder","Position Name");
 	input.setAttribute("class","job-position");
-
+	
 	td.appendChild(input);
 	
 	return false;
 }
+
+function loadFile(event) {
+	console.log(event.target.files[0].name);
+	console.log(event.target.files[0].lastModifiedDate);
+	
+	var file = event.target.files[0];
+	if(file) {
+		console.log("Entered the variable file");
+	
+	}
+
+}
+
+function getAsText(readFile) {
+	  var reader = new FileReader();
+  
+  // Read file into memory as UTF-16      
+  reader.readAsText(readFile, "UTF-16");
+  
+  // Handle progress, success, and errors
+  
+  console.log(reader.result);
+}
+
+
+
+function startRead() {  
+  // obtain input element through DOM 
+  
+  var file = document.getElementById('file').files[0];
+  if(file){
+    getAsText(file);
+  }
+}
+
+function getAsText(readFile) {
+        
+  var reader = new FileReader();
+  
+  // Read file into memory as UTF-16      
+  reader.readAsText(readFile, "utf-16");
+  console.log(reader.readyState);
+  console.log(reader.result);
+  // Handle progress, success, and errors
+  reader.onprogress = updateProgress;
+  reader.onload = loaded;
+  reader.onerror = errorHandler;
+}
+
+function updateProgress(evt) {
+  if (evt.lengthComputable) {
+    // evt.loaded and evt.total are ProgressEvent properties
+    var loaded = (evt.loaded / evt.total);
+    if (loaded < 1) {
+		console.log("Loading not complete");
+		console.log(loaded);
+      // Increase the prog bar length
+      // style.width = (loaded * 200) + "px";
+    }
+  }
+}
+
+function loaded(evt) {  
+  // Obtain the read file data    
+  var fileString = evt.target.result;
+  // Handle UTF-16 file dump
+  console.log("Entered loaded");
+  console.log(fileString);
+  document.getElementById("resume-paste").innerHTML="";
+  document.getElementById("resume-paste").innerHTML=fileString;
+}
+
+function errorHandler(evt) {
+  if(evt.target.error.name == "NotReadableError") {
+    console.log("The file could not be read");
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

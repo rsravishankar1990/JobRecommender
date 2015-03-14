@@ -1,13 +1,7 @@
-<!DOCTYPE HTML>
 
-<!-- 	Job Recommender 
-		Document Purpose:		Design and layout of the home page
-		Document Author:		RaSh
-		Document Update date:	03/04/2015 -->
-		
 <html>
 <head >
-	<Title>RaSh Job Recommender</Title>
+	<Title>Login Error</Title>
 	<meta name="keywords" content="Jobs, Recommendation, Linkedin, Content-based Recommendation">
 	<meta name="description" content="Job Recommendations based on your Linkedin Profile">
 	<meta charset = "UTF-8">
@@ -33,9 +27,10 @@
 	
 	<div id="login" style="width:450px;margin-right:50px">
 		<div style="padding-top:50px;padding-right:10px;padding-bottom:50px;padding-left:50px;width:200px;float:left">
-		<p style="border-radius:20px;background-color:#938989;text-align:center;color:white;padding:4px">Returning User? Sign in</p>
+		<p style="border-radius:20px;background-color:#938989;text-align:center;color:white;padding:4px">Returning User? Sign in.</p>
 		<form name= "login-form" action="login.cgi" onsubmit="return validate()" method="POST">
 			<div>
+				<p id="login-error">Oops! Wrong Info</p>
 			<input id="username" required style="font-family:Arial;padding-bottom:3px;padding-top:3px" type="text" autocomplete="off" name="username"  placeholder="Your E-mail">
 			
 			</div>
