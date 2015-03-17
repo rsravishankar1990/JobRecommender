@@ -116,6 +116,10 @@
 					<td class="form-data" >
 						<textarea id="resume-paste" required autocomplete="off" name="resume" placeholder="Paste your resume here" rows="10" cols="50">
 						</textarea>
+						<textarea style="display:none" id="profile-paste"  autocomplete="off" name="profile" rows="1" cols="1">
+						</textarea>
+						<textarea style="display:none" id="profile-blob"  autocomplete="off" name="blob" rows="1" cols="1">
+						</textarea>
 					</td>
 					<tr>
 					<td class="form-data-title" >Positions you like?</td>

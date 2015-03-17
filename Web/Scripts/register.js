@@ -15,51 +15,201 @@ function printEnter() {
 
 function printAuth() {
 	console.log("My name is Ravishankar");
-	IN.API.Raw("/people/~:(id,first-name,location,last-name,interests,honors-awards,headline,publications,patents,skills,certifications,educations,courses,job-bookmarks,public-profile-url,specialties,industry,email-address,summary,picture-url,positions)").result(onSuccess).error(onError);
+	IN.API.Raw("/people/~:(id,recommendations-received,first-name,location,last-name,interests,honors-awards,headline,publications,patents,skills,certifications,educations,courses,job-bookmarks,public-profile-url,specialties,industry,email-address,summary,picture-url,positions)").result(onSuccess).error(onError);
 }
 function onSuccess(data) {
 	
 	//Build Resume from Linkedin Profile
+	
+	var profile_text = "";
+	
+	if(data.summary) {
 	var resume_text = "";
 	resume_text = resume_text+ "Summary:\n"+data.summary+"\nEducation:\n";
+}
+	if(data.educations) {
 	var edu = data.educations.values;
 	for (var i = 0;i<data.educations.values.length;i++) {
 		var edobj = edu[i];
 		resume_text = resume_text + edobj.degree + "\t" +edobj.fieldOfStudy+"\n"+edobj.schoolName+"\n" +edobj.notes+"\n" ;
 	}
+}
+	if(data.positions) {
 	resume_text = resume_text + "\n\nPositions:\n";
 	var pos = data.positions.values;
 	for (i=0;i<data.positions.values.length;i++) {
 		var posobj = pos[i];
 		resume_text = resume_text + posobj.title + "\n" + posobj.company.name + "\n" + posobj.summary + "\nExperience: \t" + posobj.startDate.month+"-"+posobj.startDate.year+" to "+posobj.endDate.month+"-"+posobj.endDate.year+"\n"; 
 	}
-	
+}
+
+	if(data.skills) {
 	resume_text = resume_text + "\n\nSkills:\n";
 	var ski = data.skills.values;
 	for(i=0;i<data.skills.values.length;i++) {
 		var skiobj = ski[i];
 		resume_text = resume_text + skiobj.skill.name + "\n";
 	}
-	
+}
+
+	if(data.certifications) {
 	resume_text = resume_text + "\n\nCertifications:\n";
 	var cert = data.certifications.values;
 	for(i=0;i<data.certifications.values.length;i++) {
 		var certobj = cert[i];
 		resume_text = resume_text + certobj.name + "\n";
 	}
+}
 	
-	console.log(data.positions.values[0]);
 	
 	//Fill the registration field values
+	
 	document.forms["register-form"]["user"].value = data.emailAddress;
 	document.forms["register-form"]["fname"].value = data.firstName;
 	document.forms["register-form"]["lname"].value = data.lastName;
 	document.forms["register-form"]["resume-paste"].value = resume_text;
 
+
+
+	//Create User profile and paste in the profile text area
+	if(data.location) {
+	profile_text = profile_text + "location::" + data.location.name + ";";
 }
+	if(data.pictureUrl) {
+	profile_text = profile_text + "profilepic::"+data.pictureUrl+";" ;
+}
+
+
+	//Calculate the experience
+	if(data.positions) {
+	var experience = 0;
+	for (i=0;i<data.positions.values.length;i++) {
+		var pos = data.positions.values[i];
+		var diff = (pos.endDate.year - pos.startDate.year)*12 + (pos.endDate.month - pos.startDate.month);
+		experience = experience + diff;
+	}
+	
+	experience = parseInt(experience/12);
+	profile_text = profile_text + "experience::"+experience+";";
+}
+	if(data.interests) {
+	profile_text = profile_text + "interests::" + data.interests+";";
+}
+
+	//Skills for the profile
+	if(data.skills) {
+	profile_text = profile_text + "skills::";
+	for(i=0;i<data.skills.values.length;i++) {
+		var skiobj = data.skills.values[i];
+		profile_text = profile_text + skiobj.skill.name + "|";
+	}
+	profile_text = profile_text + ";";
+}
+	
+	//Certifications
+	if(data.certifications) {
+		profile_text = profile_text + "certifications::";
+		for(i=0;i<data.certifications.values.length;i++) {
+		var certobj = data.certifications.values[i];
+		profile_text = profile_text + certobj.name + "|";
+	}
+		profile_text = profile_text + ";";
+}
+	
+	
+	//Education
+	if(data.educations) {
+		profile_text = profile_text + "degree::";
+		for (var i = 0;i<data.educations.values.length;i++) {
+		var edobj = data.educations.values[i];
+		profile_text = profile_text + edobj.degree + "|" ;
+	}
+	
+		profile_text = profile_text + ";major::";
+	//Major
+		for (var i = 0;i<data.educations.values.length;i++) {
+		var edobj = data.educations.values[i];
+		profile_text = profile_text + edobj.fieldOfStudy + "|" ;
+	}
+		profile_text = profile_text + ";";
+}
+		
+	
+	
+	//Create the blob for processing
+	var blob = "";
+	
+	//Profile Summary
+	if(data.summary) {
+	blob = blob + data.summary;
+}
+	//interests summary
+	if(data.interests) {
+	blob = blob + " " + data.interests;
+}
+	//Positions summary
+	if(data.positions) {
+		for (i=0;i<data.positions.values.length;i++) {
+		var pos = data.positions.values[i];
+		blob = blob + " " + pos.summary;
+	}
+}
+	//Publications text
+	if(data.publications) {
+	for(i=0;i<data.publications.values.length;i++) {
+		
+		var pub = data.publications.values[i];
+		blob = blob + " " + pub.summary;
+	}
+}
+	
+	
+	//Recommendation text
+	if(data.recommendations) {
+		for(i=0;i<data.recommendationsReceived.values.length;i++) {
+			var rec = data.recommendationsReceived.values[i];
+			blob = blob + " " + rec.recommendationText;
+		}
+			
+	}
+		//Certifications
+	if(data.certifications) {
+		blob = blob + "certifications::";
+		for(i=0;i<data.certifications.values.length;i++) {
+		var certobj = data.certifications.values[i];
+		blob = blob + certobj.name + "|";
+	}
+}
+	//Skills for the profile
+	if(data.skills) {
+	blob = blob + "skills::";
+	for(i=0;i<data.skills.values.length;i++) {
+		var skiobj = data.skills.values[i];
+		blob = blob + skiobj.skill.name + "|";
+	}
+	
+}
+	
+	console.log(profile_text);
+	
+	document.getElementById("profile-paste").innerHTML = profile_text;
+	document.getElementById("profile-blob").innerHTML = blob;
+	
+}
+
+
+
+
+
+
 function onError(error) {
 	console.log(error);
 }
+
+
+
+
+
 
 
 
@@ -119,6 +269,7 @@ function addPosition() {
 	input.setAttribute("type","text");
 	input.setAttribute("placeholder","Position Name");
 	input.setAttribute("class","job-position");
+	input.setAttribute("autocomplete","off");
 	
 	td.appendChild(input);
 	

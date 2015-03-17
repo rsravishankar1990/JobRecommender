@@ -1,7 +1,13 @@
+<!DOCTYPE HTML>
 
+<!-- 	Job Recommender 
+		Document Purpose:		Registration Page
+		Document Author:		RaSh
+		Document Update date:	03/08/2015 -->
+		
 <html>
 <head >
-	<Title>Job Recommender - Registration</Title>
+	<Title>Registration Error</Title>
 	<meta name="keywords" content="Jobs, Recommendation, Linkedin, Content-based Recommendation">
 	<meta name="description" content="Job Recommendations based on your Linkedin Profile">
 	<meta charset = "UTF-8">
@@ -37,13 +43,15 @@
 		
 		<form name="register-form" action="regconfirm.cgi" onsubmit="return registerValidate()" method="POST">
 			<table id="register-table">
+				
 				<tr>
 					<td class="form-data-title"></td>
 					<td class="form-data">
-						<p style="color:red;font-size:0.85em">User already present. Provide another e-mail</p>
+						<p style="color:red">User already Present</p>
 					</td>
 					
 				</tr>
+				
 				<tr>
 					<td class="form-data-title"></td>
 					<td class="form-data">
@@ -116,6 +124,10 @@
 					<td class="form-data-title" >Paste resume</td>
 					<td class="form-data" >
 						<textarea id="resume-paste" required autocomplete="off" name="resume" placeholder="Paste your resume here" rows="10" cols="50">
+						</textarea>
+						<textarea style="display:none" id="profile-paste"  autocomplete="off" name="profile" rows="1" cols="1">
+						</textarea>
+						<textarea style="display:none" id="profile-blob"  autocomplete="off" name="blob" rows="1" cols="1">
 						</textarea>
 					</td>
 					<tr>

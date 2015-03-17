@@ -8,12 +8,7 @@
 	<meta name="author" content="RaSh">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5b1.js"></script>
 	<script src= "register.js"></script>
-	<script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key:   788id8x7crfqgu
-    onLoad:    printEnter
-    authorize: false
-    lang:      en_US
-	</script>
+	
 	<link rel="stylesheet" type="text/css" href="HomeStyle.css"> 
 	<link rel="stylesheet" type="text/css" href="register.css">
 	<link rel="stylesheet" type="text/css" href="register_conf.css">
